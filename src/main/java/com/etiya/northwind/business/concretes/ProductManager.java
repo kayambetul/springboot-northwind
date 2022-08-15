@@ -128,7 +128,7 @@ public class ProductManager implements ProductService {
 
     private void checkIfCategoryLimitExceeds(int id){
         List<Product> products = this.productRepository.findByCategory_CategoryId(id);
-        if (products.size() >= 14){
+        if (products.size() > 15){
             throw new BusinessException("Category limit exceeded");
         }
     }

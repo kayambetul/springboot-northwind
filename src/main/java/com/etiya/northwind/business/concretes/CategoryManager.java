@@ -51,21 +51,21 @@ public class CategoryManager implements CategoryService {
 
     @Override
     public Result update(UpdateCategoryRequest updateCategoryRequest) {
-        if(checkIfCategoryExitsById(updateCategoryRequest.getCategoryId())) {
-            Category category = this.modelMapperService.forRequest().map(updateCategoryRequest, Category.class);
-            this.categoryRepository.save(category);
+        checkIfCategoryExitsById(updateCategoryRequest.getCategoryId());
+        Category category = this.modelMapperService.forRequest().map(updateCategoryRequest, Category.class);
+        this.categoryRepository.save(category);
 
-        }
+
         return new SuccessResult("CATEGORY.UPDATED");
     }
 
     @Override
     public Result delete(DeleteCategoryRequest deleteCategoryRequest) {
-        if(checkIfCategoryExitsById(deleteCategoryRequest.getCategoryId())) {
-            Category category = this.modelMapperService.forRequest().map(deleteCategoryRequest, Category.class);
-            this.categoryRepository.delete(category);
+        checkIfCategoryExitsById(deleteCategoryRequest.getCategoryId());
+        Category category = this.modelMapperService.forRequest().map(deleteCategoryRequest, Category.class);
+        this.categoryRepository.delete(category);
 
-        }
+
         return new SuccessResult("CATEGORY.DELETED");
     }
 
@@ -77,13 +77,13 @@ public class CategoryManager implements CategoryService {
         return new SuccessDataResult<ReadCategoryResponse>(response);
     }
 
-    private boolean checkIfCategoryExitsById(int id)  {
-        boolean exists=false;
-        if(categoryRepository.findById(id).get()!=null) {
-            exists=true;
-            System.out.println("CATEGORY.ID.ALREADY.EXİSTS ");
+    private void checkIfCategoryExitsById(int id)  {
+        Category currentCategory = this.categoryRepository.findById(id).get();
+        if (currentCategory!= null ){
+           throw new BusinessException("Category id already exists");
         }
-        return exists;
+
+
     }
 
     private void checkIfCategoryExistsByName(String name){

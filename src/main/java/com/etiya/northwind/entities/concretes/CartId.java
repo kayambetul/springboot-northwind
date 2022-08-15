@@ -14,8 +14,8 @@ import java.io.Serializable;
 public class CartId implements Serializable {
     private static final long serialVersionUID = 2L;
 
-    private Customer customer;
-    private Product product;
+    private String customerId;
+    private int productId;
 
 
 
