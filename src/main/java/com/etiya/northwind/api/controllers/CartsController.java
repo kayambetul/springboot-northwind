@@ -3,6 +3,7 @@ package com.etiya.northwind.api.controllers;
 import com.etiya.northwind.business.abstracts.CartService;
 import com.etiya.northwind.business.requests.carts.CreateCartRequest;
 import com.etiya.northwind.business.requests.carts.DeleteCartRequest;
+import com.etiya.northwind.business.requests.carts.SaleCartRequest;
 import com.etiya.northwind.business.requests.carts.UpdateCartRequest;
 import com.etiya.northwind.business.responses.carts.CartListResponse;
 import com.etiya.northwind.business.responses.carts.ReadCartResponse;
@@ -45,5 +46,10 @@ public class CartsController {
     public DataResult<ReadCartResponse> getById(String customerId, int productId)
     {
         return this.cartService.getById(customerId,productId);
+    }
+
+    @DeleteMapping("/sales")
+    public Result sales(@RequestBody SaleCartRequest saleCartRequest) {
+        return this.cartService.sales(saleCartRequest);
     }
 }

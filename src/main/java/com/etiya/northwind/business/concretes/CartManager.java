@@ -11,6 +11,7 @@ import com.etiya.northwind.business.responses.carts.CartListResponse;
 import com.etiya.northwind.business.responses.carts.ReadCartResponse;
 import com.etiya.northwind.business.responses.orderDetails.OrderDetailListResponse;
 import com.etiya.northwind.business.responses.orderDetails.ReadOrderDetailResponse;
+import com.etiya.northwind.core.utilities.exceptions.BusinessException;
 import com.etiya.northwind.core.utilities.mapping.ModelMapperService;
 import com.etiya.northwind.core.utilities.results.DataResult;
 import com.etiya.northwind.core.utilities.results.Result;
@@ -29,7 +30,6 @@ public class CartManager implements CartService {
     private ModelMapperService modelMapperService;
     private CartRepository cartRepository;
     private OrderDetailService orderDetailService;
-
     private OrderService orderService;
 
     public CartManager(ModelMapperService modelMapperService, CartRepository cartRepository,
@@ -86,5 +86,27 @@ public class CartManager implements CartService {
         Cart cart = this.cartRepository.getByCustomer_CustomerIdAndProduct_ProductId(customerId,productId);
         ReadCartResponse response = this.modelMapperService.forResponse().map(cart, ReadCartResponse.class);
         return new SuccessDataResult<>(response);
+    }
+
+    @Override
+    public Result sales(SaleCartRequest salesCartRequest) {
+        checkIfSales();
+        Cart cart = this.cartRepository.getByCustomer_CustomerIdAndProduct_ProductId(salesCartRequest.getCustomerId(), salesCartRequest.getProductId());
+        salesCartRequest.getCreateOrderRequest().setCustomerId(cart.getCustomerId());
+        salesCartRequest.getCreateOrderDetailRequest().setProductId(cart.getProductId());
+
+        this.orderService.add(salesCartRequest.getCreateOrderRequest());
+        this.orderDetailService.add(salesCartRequest.getCreateOrderDetailRequest());
+
+        this.cartRepository.deleteCartWithCustomerAndProductId(salesCartRequest.getCustomerId(), salesCartRequest.getProductId());
+        return new SuccessResult("Sales.Success");
+    }
+
+
+    private void checkIfSales(){
+        boolean isSales= true;
+        if(!isSales){
+            throw new BusinessException("satış yapılmadı");
+        }
     }
 }

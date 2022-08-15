@@ -1,6 +1,7 @@
 package com.etiya.northwind.business.concretes;
 
 import com.etiya.northwind.business.abstracts.OrderDetailService;
+import com.etiya.northwind.business.abstracts.ProductService;
 import com.etiya.northwind.business.requests.orderDetails.CreateOrderDetailRequest;
 import com.etiya.northwind.business.requests.orderDetails.DeleteOrderDetailRequest;
 import com.etiya.northwind.business.requests.orderDetails.UpdateOrderDetailRequest;
@@ -25,10 +26,13 @@ import java.util.stream.Collectors;
 public class OrderDetailManager implements OrderDetailService {
     private OrderDetailRepository orderDetailRepository;
     private ModelMapperService modelMapperService;
+    private ProductService productService;
 
-    public OrderDetailManager(OrderDetailRepository orderDetailRepository, ModelMapperService modelMapperService) {
+    public OrderDetailManager(OrderDetailRepository orderDetailRepository, ModelMapperService modelMapperService,
+                              ProductService productService   ) {
         this.orderDetailRepository = orderDetailRepository;
         this.modelMapperService = modelMapperService;
+        this.productService=productService;
     }
 
     @Override

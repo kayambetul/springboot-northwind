@@ -2,6 +2,7 @@ package com.etiya.northwind.business.abstracts;
 
 import com.etiya.northwind.business.requests.carts.CreateCartRequest;
 import com.etiya.northwind.business.requests.carts.DeleteCartRequest;
+import com.etiya.northwind.business.requests.carts.SaleCartRequest;
 import com.etiya.northwind.business.requests.carts.UpdateCartRequest;
 
 import com.etiya.northwind.business.responses.carts.CartListResponse;
@@ -18,4 +19,5 @@ public interface CartService {
     Result update(UpdateCartRequest updateCartRequest);
     Result delete(DeleteCartRequest deleteCartRequest);
     DataResult<ReadCartResponse> getById(String customerId, int productId);
+    Result sales(SaleCartRequest salesCartRequest);
 }

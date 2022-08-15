@@ -144,4 +144,8 @@ public class ProductManager implements ProductService {
         List<Product> resultPage =  this.productRepository.findAll();
         return  resultPage.size();
     }
+
+
+
+
 }
