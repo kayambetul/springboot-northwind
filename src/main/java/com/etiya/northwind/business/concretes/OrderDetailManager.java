@@ -26,13 +26,13 @@ import java.util.stream.Collectors;
 public class OrderDetailManager implements OrderDetailService {
     private OrderDetailRepository orderDetailRepository;
     private ModelMapperService modelMapperService;
-    private ProductService productService;
+  //  private ProductService productService;
 
-    public OrderDetailManager(OrderDetailRepository orderDetailRepository, ModelMapperService modelMapperService,
-                              ProductService productService   ) {
+    public OrderDetailManager(OrderDetailRepository orderDetailRepository, ModelMapperService modelMapperService
+                                ) {
         this.orderDetailRepository = orderDetailRepository;
         this.modelMapperService = modelMapperService;
-        this.productService=productService;
+       // this.productService=productService;
     }
 
     @Override

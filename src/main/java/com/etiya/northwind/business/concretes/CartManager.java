@@ -36,8 +36,8 @@ public class CartManager implements CartService {
                        OrderDetailService orderDetailService,OrderService orderService) {
         this.modelMapperService = modelMapperService;
         this.cartRepository = cartRepository;
-        this.orderDetailService = orderDetailService;
-        this.orderService=orderService;
+       this.orderDetailService = orderDetailService;
+       this.orderService=orderService;
     }
 
     @Override
